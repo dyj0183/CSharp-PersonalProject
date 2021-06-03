@@ -1,6 +1,7 @@
 ﻿@page
 @model PersonalCSharpProject.Pages.Restaurants.IndexModel
 @{
+    ViewData["Title"] = "Restaurant";
 }
 
 <h1>Welcome to Sami's Restaurant</h1>
@@ -10,7 +11,8 @@
 <form method="GET">
     <div class="form-group">
         <div class="input-group">
-            <input type="search" class="form-control" value="" name="searchTerm" />
+            @*asp-for is two way data binding, set up both value and name*@
+            <input type="search" class="form-control" asp-for="SearchTerm" /> 
             <button class="btn btn-dark">Search</button>
         </div>
     </div>
@@ -24,6 +26,12 @@
             <td>@restaurant.Name</td>
             <td>@restaurant.Location</td>
             <td>@restaurant.Cuisine</td>
+            <td>
+                <a class="btn btn-primary"
+                   asp-page="./Detail" 
+                   asp-route-restaurantId="@restaurant.Id">Detail
+                </a>
+            </td>
         </tr>
     }
 </table>

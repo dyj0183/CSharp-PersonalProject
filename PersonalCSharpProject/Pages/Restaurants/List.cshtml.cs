@@ -16,6 +16,9 @@ namespace PersonalCSharpProject.Pages.Restaurants
         private readonly IRestaurantData restaurantData;
         public string Message { get; set; }
         public IEnumerable<Restaurant> Restaurants { get; set; }
+        
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
 
         public IndexModel(IConfiguration config, IRestaurantData restaurantData)
         {
@@ -24,10 +27,11 @@ namespace PersonalCSharpProject.Pages.Restaurants
         }
 
         // use model binding to grab data from the user input in the search form 
-        public void OnGet(string searchTerm)
+        public void OnGet()
         {
             Message = "Hello World";
-            Restaurants = restaurantData.GetRestaurantsByName(searchTerm);
+            Restaurants = restaurantData.GetRestaurantsByName(SearchTerm);
+            
         }
     }
 }
