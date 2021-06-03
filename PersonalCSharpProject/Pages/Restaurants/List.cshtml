@@ -4,6 +4,31 @@
 }
 
 <h1>Welcome to Sami's Restaurant</h1>
+@*allow me to grab the data from the .cs file*@
+
+@*built search funtionality*@
+<form method="GET">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="search" class="form-control" value="" name="searchTerm" />
+            <button class="btn btn-dark">Search</button>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    @*I can just use "Model" cause at the top I said "@model ..."*@
+    @foreach (var restaurant in Model.Restaurants)
+    {
+        <tr>
+            <td>@restaurant.Name</td>
+            <td>@restaurant.Location</td>
+            <td>@restaurant.Cuisine</td>
+        </tr>
+    }
+</table>
 
 
-@Model.Message
+<div>
+    @Model.Message
+</div>

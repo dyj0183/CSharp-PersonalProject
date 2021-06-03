@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using Food.Core;
+using System.Linq;
 
 namespace Food.Data
 {
     public interface IRestaurantData
     {
-        IEnumerable<Restaurant> GetAll();
+        //what is IEnumerable?
+        IEnumerable<Restaurant> GetRestaurantsByName(string name);
     }
 
     public class InMemoryRestaurantData : IRestaurantData
@@ -24,9 +26,13 @@ namespace Food.Data
             };
         }
 
-        public IEnumerable<Restaurant> GetAll()
+        public IEnumerable<Restaurant> GetRestaurantsByName(string name = null)
         {
-
+            // use LINQ here
+            return from r in restaurants
+                   where string.IsNullOrEmpty(name) || r.Name.StartsWith(name)
+                   orderby r.Name
+                   select r;
         }
     }
 }
