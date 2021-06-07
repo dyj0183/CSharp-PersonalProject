@@ -21,9 +21,15 @@ namespace PersonalCSharpProject.Pages.Restaurants
         }
 
         // when it comes to OnGet(), where did I pass the "int restaurantId" into here? From List.cshtml?
-        public void OnGet(int restaurantId)
+        // if we don't return anything in OnGet, by default it will render the Detail.cshtml page
+        public IActionResult OnGet(int restaurantId)
         {
             Restaurant = restaurantData.GetRestaurantById(restaurantId);
+            if (Restaurant == null)
+            {
+                return RedirectToPage("./NotFound");
+            }
+            return Page(); // this will render Detail.cshtml page
             
         }
     }
