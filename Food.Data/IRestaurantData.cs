@@ -10,6 +10,7 @@ namespace Food.Data
     {
         //what is IEnumerable?
         IEnumerable<Restaurant> GetRestaurantsByName(string name);
+        Restaurant GetRestaurantById(int id);
     }
 
     public class InMemoryRestaurantData : IRestaurantData
@@ -33,6 +34,12 @@ namespace Food.Data
                    where string.IsNullOrEmpty(name) || r.Name.StartsWith(name)
                    orderby r.Name
                    select r;
+        }
+
+        public Restaurant GetRestaurantById(int id)
+        {
+            // use LINQ here, the default would be null if we can't find any matched id
+            return restaurants.SingleOrDefault(r => r.Id == id);
         }
     }
 }
