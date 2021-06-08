@@ -12,6 +12,7 @@ namespace Food.Data
         IEnumerable<Restaurant> GetRestaurantsByName(string name);
         Restaurant GetRestaurantById(int id);
         Restaurant Update(Restaurant updatedRestaurant);
+        Restaurant Add(Restaurant newRestaurant);
         int Commit();
     }
 
@@ -45,7 +46,7 @@ namespace Food.Data
             return restaurants.SingleOrDefault(r => r.Id == id);
         }
 
-        // update
+        // update an existing restaurant
         public Restaurant Update(Restaurant updatedRestaurant)
         {
             // first, find the correct restaurant to work with
@@ -61,6 +62,16 @@ namespace Food.Data
             restaurant.Cuisine = updatedRestaurant.Cuisine;
 
             return restaurant;
+        }
+
+        // add a new restaurant
+        public Restaurant Add(Restaurant newRestaurant)
+        {
+            newRestaurant.Id = restaurants.Max(r => r.Id) + 1;
+            // add the newRestaurant into all the restaurants
+            restaurants.Add(newRestaurant);
+
+            return newRestaurant;
         }
 
         public int Commit()

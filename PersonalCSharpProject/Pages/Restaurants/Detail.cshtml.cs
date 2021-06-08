@@ -11,6 +11,9 @@ namespace PersonalCSharpProject.Pages.Restaurants
 {
     public class DetailModel : PageModel
     {
+        [TempData]
+        public string Message { get; set; }
+
         public Restaurant Restaurant { get; set; }
         private readonly IRestaurantData restaurantData;
 

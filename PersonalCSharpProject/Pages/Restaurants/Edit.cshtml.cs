@@ -50,16 +50,25 @@ namespace PersonalCSharpProject.Pages.Restaurants
         public IActionResult OnPost()
         {
             // check if it passes all the validation check which was defined in Restaurant.cs
-            if(ModelState.IsValid)
+            if(!ModelState.IsValid)
+            {
+                Cuisines = htmlHelper.GetEnumSelectList<CuisineType>();
+                return Page();
+            }
+         
+            if (Restaurant.Id <= 0)
+            {
+                restaurantData.Add(Restaurant);
+            } 
+            else
             {
                 restaurantData.Update(Restaurant);
-                restaurantData.Commit();
-                return RedirectToPage("./Detail", new {restaurantId = Restaurant.Id});
+               
             }
-          
 
-            Cuisines = htmlHelper.GetEnumSelectList<CuisineType>();
-            return Page();
+            restaurantData.Commit();
+            TempData["Message"] = "Restaurant Created Successfully!"; // temporary data, any page can access it
+            return RedirectToPage("./Detail", new { restaurantId = Restaurant.Id });
         }
     }
 }
