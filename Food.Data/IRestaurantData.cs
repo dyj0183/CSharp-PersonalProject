@@ -11,12 +11,15 @@ namespace Food.Data
         //what is IEnumerable?
         IEnumerable<Restaurant> GetRestaurantsByName(string name);
         Restaurant GetRestaurantById(int id);
+        Restaurant Update(Restaurant updatedRestaurant);
+        int Commit();
     }
 
     public class InMemoryRestaurantData : IRestaurantData
     {
         List<Restaurant> restaurants;
 
+        // constructor
         public InMemoryRestaurantData()
         {
             restaurants = new List<Restaurant>()
@@ -40,6 +43,29 @@ namespace Food.Data
         {
             // use LINQ here, the default would be null if we can't find any matched id
             return restaurants.SingleOrDefault(r => r.Id == id);
+        }
+
+        // update
+        public Restaurant Update(Restaurant updatedRestaurant)
+        {
+            // first, find the correct restaurant to work with
+            var restaurant = restaurants.SingleOrDefault(r => r.Id == updatedRestaurant.Id);
+
+            if(restaurant == null)
+            {
+                return null;
+            }
+
+            restaurant.Name = updatedRestaurant.Name;
+            restaurant.Location = updatedRestaurant.Location;
+            restaurant.Cuisine = updatedRestaurant.Cuisine;
+
+            return restaurant;
+        }
+
+        public int Commit()
+        {
+            return 0;
         }
     }
 }

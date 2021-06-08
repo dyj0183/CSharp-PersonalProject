@@ -15,7 +15,9 @@ namespace PersonalCSharpProject.Pages.Restaurants
         private readonly IRestaurantData restaurantData;
         private readonly IHtmlHelper htmlHelper;
 
+        [BindProperty]
         public Restaurant Restaurant { get; set; }
+
         public IEnumerable<SelectListItem> Cuisines { get; set; }
         public EditModel(IRestaurantData restaurantData, IHtmlHelper htmlHelper)
         {
@@ -35,6 +37,21 @@ namespace PersonalCSharpProject.Pages.Restaurants
             }
             return Page(); // reneder to the Edit.cshtml page
 
+        }
+
+        public IActionResult OnPost()
+        {
+            // check if it passes all the validation check which was defined in Restaurant.cs
+            if(ModelState.IsValid)
+            {
+                restaurantData.Update(Restaurant);
+                restaurantData.Commit();
+                return RedirectToPage("./Detail", new { restaurantId = Restaurant.Id });
+            }
+          
+
+            Cuisines = htmlHelper.GetEnumSelectList<CuisineType>();
+            return Page();
         }
     }
 }
