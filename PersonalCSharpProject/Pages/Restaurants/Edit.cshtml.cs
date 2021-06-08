@@ -59,6 +59,7 @@ namespace PersonalCSharpProject.Pages.Restaurants
             if (Restaurant.Id <= 0)
             {
                 restaurantData.Add(Restaurant);
+                TempData["Message"] = "Restaurant Created Successfully!"; // temporary data, any page can access it
             } 
             else
             {
@@ -67,7 +68,6 @@ namespace PersonalCSharpProject.Pages.Restaurants
             }
 
             restaurantData.Commit();
-            TempData["Message"] = "Restaurant Created Successfully!"; // temporary data, any page can access it
             return RedirectToPage("./Detail", new { restaurantId = Restaurant.Id });
         }
     }
