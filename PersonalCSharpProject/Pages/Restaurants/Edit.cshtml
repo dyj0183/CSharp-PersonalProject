@@ -1,10 +1,10 @@
-﻿@page "{restaurantId:int}"
+﻿@page "{restaurantId:int?}"
 @model PersonalCSharpProject.Pages.Restaurants.EditModel
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>This is my edit page! My page ID is @Model.Restaurant.Id</h1>
+<h1>Welcome to the edit page!</h1>
 <form method="POST">
     <div class="form-group">
         <label asp-for="Restaurant.Name"></label>
